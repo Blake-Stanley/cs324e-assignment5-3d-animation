@@ -8,6 +8,8 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private Matrix view, projection;
+    private BasicEffect _groundEffect; // Ground effect
+    private VertexPositionColor[] _groundVertices; // Ground vertices
     private Model _tigerModel;
     private Tiger _tiger1;
     private Tiger _tiger2;
@@ -32,6 +34,17 @@ public class Game1 : Game
             0.1f,
             100f
         );
+        
+        // Ground effect
+        _groundEffect = new BasicEffect(GraphicsDevice);
+        _groundEffect.VertexColorEnabled = true;
+        _groundVertices = new VertexPositionColor[]
+        {
+            new VertexPositionColor(new Vector3(-20, -1f, -20), new Color(34, 100, 20)),
+            new VertexPositionColor(new Vector3( 20, -1f, -20), new Color(34, 100, 20)),
+            new VertexPositionColor(new Vector3(-20, -1f,  20), new Color(34, 100, 20)),
+            new VertexPositionColor(new Vector3( 20, -1f,  20), new Color(34, 100, 20)),
+        };
 
         base.Initialize();
     }
@@ -57,10 +70,20 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(new Color(34, 85, 34)); // jungle green background
-        
+        _groundEffect.View = view;
+        _groundEffect.Projection = projection;
+        _groundEffect.World = Matrix.Identity;
+        foreach (EffectPass pass in _groundEffect.CurrentTechnique.Passes)
+        {
+            pass.Apply();
+            GraphicsDevice.DrawUserPrimitives(
+                PrimitiveType.TriangleStrip,
+                _groundVertices, 0, 2
+            );
+        }
         // Draw tigers
-        // _tiger1.Draw(view, projection);
-        // _tiger2.Draw(view, projection);
+         _tiger1.Draw(view, projection);
+         _tiger2.Draw(view, projection);
 
         base.Draw(gameTime);
     }
