@@ -8,6 +8,7 @@ public class Tiger
     // Fields
     private Model _model;
     private Vector3 _position;
+    private Texture2D _texture;
     private float _scale;
     private float _walkSpeed;
     private float _walkDirection;  // +1 = walk right, -1 = walk left
@@ -15,12 +16,14 @@ public class Tiger
     private float _tailRotation;
     private float _elapsedTime;
     private float _lerpTiger;  // normalized walk progress for lerp
+    private float _baseY;
 
     private const float left_bound = -5f;
     private const float right_bound = 5f;
 
-    public Tiger(Model _model, Vector3 startPosition, float _scale = 0.01f, float walkSpeed = 2f)
+    public Tiger(Model _model, Texture2D texture, Vector3 startPosition, float _scale = 0.01f, float walkSpeed = 2f)
     {
+        this._texture = texture;
         this._model = _model;
         this._position = startPosition;
         this._scale = _scale;
@@ -28,6 +31,7 @@ public class Tiger
         this._walkDirection = 1f;
         this._lerpTiger = 0.0f;
         this._elapsedTime = 0.0f;
+        this._baseY = startPosition.Y;
     }
 
     public void Update(GameTime gameTime)
@@ -51,7 +55,7 @@ public class Tiger
         
         // tail sway, slower
         _tailRotation = (float)System.Math.Sin(_elapsedTime * 3f) * 0.3f;
-        _position.Y = (float)System.Math.Abs(System.Math.Sin(_elapsedTime * 6f)) * 0.2f;
+        _position.Y = _baseY + (float)System.Math.Abs(System.Math.Sin(_elapsedTime * 6f)) * 0.2f;
     }
 
     public void Draw(Matrix view, Matrix projection)
@@ -63,10 +67,9 @@ public class Tiger
         Matrix rootWorld = Matrix.CreateScale(_scale)
                            * Matrix.CreateRotationX(MathHelper.ToRadians(75f))
                            * Matrix.CreateRotationY(MathHelper.ToRadians(0f))
-                           * Matrix.CreateRotationZ(MathHelper.ToRadians(130f))
+                           * Matrix.CreateRotationZ(MathHelper.ToRadians(170f))
                            * Matrix.CreateRotationY(facingAngle)
                            * Matrix.CreateTranslation(_position);
-
         foreach (ModelMesh mesh in _model.Meshes)
         {
             // Determines the per-mesh child tranform based on name
@@ -92,10 +95,11 @@ public class Tiger
                 effect.View = view;
                 effect.Projection = projection;
                 effect.EnableDefaultLighting();
-                effect.TextureEnabled = false;
-                effect.DiffuseColor = new Vector3(0.8f, 0.5f, 0.1f);
+                effect.TextureEnabled = true; // set false if issues building
+                effect.Texture = _texture;
+                effect.TextureEnabled = true;
             }
-
+            
             
             mesh.Draw();
         }

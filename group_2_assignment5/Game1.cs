@@ -10,9 +10,9 @@ public class Game1 : Game
     private Matrix view, projection;
     private BasicEffect _groundEffect; // Ground effect
     private VertexPositionColor[] _groundVertices; // Ground vertices
-    // private Model _tigerModel;
-    // private Tiger _tiger1;
-    // private Tiger _tiger2;
+    private Model _tigerModel;
+    private Tiger _tiger1;
+    private Tiger _tiger2;
     private Model _birdModel;
     private Bird _bird1;
     private Bird _bird2;
@@ -27,7 +27,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         view = Matrix.CreateLookAt(
-            new Vector3(0, 3, 10),
+            new Vector3(0, 3, 15),
             Vector3.Zero,
             Vector3.Up);
 
@@ -54,9 +54,10 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        // _tigerModel =  Content.Load<Model>("models/Tiger");
-        // _tiger1 = new Tiger(_tigerModel, new Vector3(-5f, 0f, 0f), _scale: 0.01f, walkSpeed: 2f);
-        // _tiger2 = new Tiger(_tigerModel, new Vector3(0f, 0f, 2f), _scale: 0.015f, walkSpeed: 1.3f);
+        _tigerModel =  Content.Load<Model>("models/Tiger");
+        Texture2D tigerTexture = Content.Load<Texture2D>("models/Tiger_Diffuse");
+        _tiger1 = new Tiger(_tigerModel, tigerTexture, new Vector3(-5f, 0.48f, 7f), _scale: 1.2f, walkSpeed: 2f);
+        _tiger2 = new Tiger(_tigerModel, tigerTexture, new Vector3(0f, 0.3f, 10f), _scale: 1.0f, walkSpeed: 1.3f);
         
         _birdModel = Content.Load<Model>("models/Love_birds");
         _bird1 = new Bird(_birdModel, new Vector3(-12f, 1f, -10f), 0.1f, 6f,
@@ -72,8 +73,8 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // _tiger1.Update(gameTime);
-        // _tiger2.Update(gameTime);
+        _tiger1.Update(gameTime);
+        _tiger2.Update(gameTime);
         
         _bird1.Update(gameTime);
         _bird2.Update(gameTime);
@@ -94,9 +95,10 @@ public class Game1 : Game
                 _groundVertices, 0, 2
             );
         }
+        
         // Draw tigers
-         // _tiger1.Draw(view, projection);
-         // _tiger2.Draw(view, projection);
+         _tiger1.Draw(view, projection);
+         _tiger2.Draw(view, projection);
          
          _bird1.Draw(view, projection);
          _bird2.Draw(view, projection);
