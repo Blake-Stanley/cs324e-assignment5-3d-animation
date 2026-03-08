@@ -10,9 +10,11 @@ public class Game1 : Game
     private Matrix view, projection;
     private BasicEffect _groundEffect; // Ground effect
     private VertexPositionColor[] _groundVertices; // Ground vertices
-    private Model _tigerModel;
-    private Tiger _tiger1;
-    private Tiger _tiger2;
+    // private Model _tigerModel;
+    // private Tiger _tiger1;
+    // private Tiger _tiger2;
+
+    private Frog myFrog;
     
     public Game1()
     {
@@ -51,9 +53,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        _tigerModel =  Content.Load<Model>("models/Tiger");
-        _tiger1 = new Tiger(_tigerModel, new Vector3(-5f, 0f, 0f), _scale: 0.01f, walkSpeed: 2f);
-        _tiger2 = new Tiger(_tigerModel, new Vector3(0f, 0f, 2f), _scale: 0.015f, walkSpeed: 1.3f);
+        //_tigerModel =  Content.Load<Model>("models/Tiger");
+        // _tiger1 = new Tiger(_tigerModel, new Vector3(-5f, 0f, 0f), _scale: 0.01f, walkSpeed: 2f);
+        //_tiger2 = new Tiger(_tigerModel, new Vector3(0f, 0f, 2f), _scale: 0.015f, walkSpeed: 1.3f);
+        
+        Model frogModel = Content.Load<Model>("models/frog");
+        myFrog = new Frog(frogModel, new Vector3(0, 0, 0), new Vector3(5, 0, 0), 2f, 2f);
+        myFrog.Scale = 0.01f;
     }
 
     protected override void Update(GameTime gameTime)
@@ -62,8 +68,11 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        _tiger1.Update(gameTime);
-        _tiger2.Update(gameTime);
+       // _tiger1.Update(gameTime);
+       // _tiger2.Update(gameTime);
+       
+       myFrog.Update(gameTime);
+       
         base.Update(gameTime);
     }
 
@@ -82,8 +91,10 @@ public class Game1 : Game
             );
         }
         // Draw tigers
-         _tiger1.Draw(view, projection);
-         _tiger2.Draw(view, projection);
+         //_tiger1.Draw(view, projection);
+         //_tiger2.Draw(view, projection);
+         
+         myFrog.Draw(view, projection);
 
         base.Draw(gameTime);
     }
