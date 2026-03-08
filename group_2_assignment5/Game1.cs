@@ -10,9 +10,12 @@ public class Game1 : Game
     private Matrix view, projection;
     private BasicEffect _groundEffect; // Ground effect
     private VertexPositionColor[] _groundVertices; // Ground vertices
-    private Model _tigerModel;
-    private Tiger _tiger1;
-    private Tiger _tiger2;
+    // private Model _tigerModel;
+    // private Tiger _tiger1;
+    // private Tiger _tiger2;
+    private Model _birdModel;
+    private Bird _bird1;
+    private Bird _bird2;
     
     public Game1()
     {
@@ -51,9 +54,16 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        _tigerModel =  Content.Load<Model>("models/Tiger");
-        _tiger1 = new Tiger(_tigerModel, new Vector3(-5f, 0f, 0f), _scale: 0.01f, walkSpeed: 2f);
-        _tiger2 = new Tiger(_tigerModel, new Vector3(0f, 0f, 2f), _scale: 0.015f, walkSpeed: 1.3f);
+        // _tigerModel =  Content.Load<Model>("models/Tiger");
+        // _tiger1 = new Tiger(_tigerModel, new Vector3(-5f, 0f, 0f), _scale: 0.01f, walkSpeed: 2f);
+        // _tiger2 = new Tiger(_tigerModel, new Vector3(0f, 0f, 2f), _scale: 0.015f, walkSpeed: 1.3f);
+        
+        _birdModel = Content.Load<Model>("models/Love_birds");
+        _bird1 = new Bird(_birdModel, new Vector3(-12f, 1f, -10f), 0.1f, 6f,
+            0.8f, 20f, Color.Aqua);
+        _bird2 = new Bird(_birdModel, new Vector3(-17f, 2f, -15f), 0.08f, 10f,
+            2f, 40f, Color.Red);
+
     }
 
     protected override void Update(GameTime gameTime)
@@ -62,8 +72,11 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        _tiger1.Update(gameTime);
-        _tiger2.Update(gameTime);
+        // _tiger1.Update(gameTime);
+        // _tiger2.Update(gameTime);
+        
+        _bird1.Update(gameTime);
+        _bird2.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -82,8 +95,11 @@ public class Game1 : Game
             );
         }
         // Draw tigers
-          _tiger1.Draw(view, projection);
-          _tiger2.Draw(view, projection);
+         // _tiger1.Draw(view, projection);
+         // _tiger2.Draw(view, projection);
+         
+         _bird1.Draw(view, projection);
+         _bird2.Draw(view, projection);
 
         base.Draw(gameTime);
     }
