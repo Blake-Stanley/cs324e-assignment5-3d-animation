@@ -16,6 +16,9 @@ public class Game1 : Game
     private Model _birdModel;
     private Bird _bird1;
     private Bird _bird2;
+    private Model _monkeyModel;
+    private Monkey _monkey1;
+    private Monkey _monkey2;
     
     public Game1()
     {
@@ -65,6 +68,11 @@ public class Game1 : Game
         _bird2 = new Bird(_birdModel, new Vector3(-17f, 2f, -15f), 0.08f, 10f,
             2f, 40f, Color.Red);
 
+        _monkeyModel = Content.Load<Model>("models/monkey");
+        Texture2D monkeyTexture = Content.Load<Texture2D>("models/monkey_fur");
+        _monkey1 = new Monkey(_monkeyModel, monkeyTexture, new Vector3(3f, 0.5f, 5f), _scale: 1.0f, swingSpeed: 1.5f);
+        _monkey2 = new Monkey(_monkeyModel, monkeyTexture, new Vector3(-2f, 0.3f, 3f), _scale: 0.7f, swingSpeed: 2.5f);
+
     }
 
     protected override void Update(GameTime gameTime)
@@ -78,6 +86,8 @@ public class Game1 : Game
         
         _bird1.Update(gameTime);
         _bird2.Update(gameTime);
+        _monkey1.Update(gameTime);
+        _monkey2.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -102,6 +112,8 @@ public class Game1 : Game
          
          _bird1.Draw(view, projection);
          _bird2.Draw(view, projection);
+         _monkey1.Draw(view, projection);
+         _monkey2.Draw(view, projection);
 
         base.Draw(gameTime);
     }
