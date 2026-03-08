@@ -65,6 +65,7 @@
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=NoChange
+/processorParam:ColorKeyEnabled=False
 /build:models/Tiger.fbx
 

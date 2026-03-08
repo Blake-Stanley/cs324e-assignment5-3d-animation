@@ -82,8 +82,8 @@ public class Game1 : Game
             );
         }
         // Draw tigers
-         _tiger1.Draw(view, projection);
-         _tiger2.Draw(view, projection);
+          _tiger1.Draw(view, projection);
+          _tiger2.Draw(view, projection);
 
         base.Draw(gameTime);
     }

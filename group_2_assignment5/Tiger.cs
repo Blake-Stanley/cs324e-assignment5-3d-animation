@@ -92,7 +92,7 @@ public class Tiger
                 effect.View = view;
                 effect.Projection = projection;
                 effect.EnableDefaultLighting();
-                effect.TextureEnabled = true;
+                effect.TextureEnabled = false;
                 effect.DiffuseColor = new Vector3(0.8f, 0.5f, 0.1f);
             }
 
