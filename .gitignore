@@ -1,4 +1,6 @@
 #OS junk files
+AppData/
+**/AppData/
 [Tt]humbs.db
 *.DS_Store
 
