@@ -88,6 +88,7 @@ public class Tiger
                 childTransform = Matrix.CreateRotationZ(_tailRotation);
             }
             
+            
             // Apply child transform first locally the root world transform
             foreach (BasicEffect effect in mesh.Effects)
             {
