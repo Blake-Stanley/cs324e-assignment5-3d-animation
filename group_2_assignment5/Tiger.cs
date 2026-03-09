@@ -50,12 +50,14 @@ public class Tiger
         if (_lerpTiger >= 1f) _walkDirection = -1f;
         if (_lerpTiger <= 0f) _walkDirection = 1f;
         
-        // Leg rotation, sine walk cycle
-        _legRotation = (float)System.Math.Sin(_elapsedTime * 6f) * 0.4f;
-        
-        // tail sway, slower
-        _tailRotation = (float)System.Math.Sin(_elapsedTime * 3f) * 0.3f;
-        _position.Y = _baseY + (float)System.Math.Abs(System.Math.Sin(_elapsedTime * 6f)) * 0.2f;
+        // Subtle walk bob (less bouncy, more natural)
+        _position.Y = _baseY + (float)System.Math.Abs(System.Math.Sin(_elapsedTime * 4f)) * 0.15f;
+    
+        // Reuse _legRotation as a side-to-side body sway
+        _legRotation = (float)System.Math.Sin(_elapsedTime * 4f) * 0.15f;
+    
+        // Reuse _tailRotation as a subtle forward/back tilt while walking
+        _tailRotation = (float)System.Math.Sin(_elapsedTime * 4f) * 0.1f;
     }
 
     public void Draw(Matrix view, Matrix projection)
@@ -65,9 +67,8 @@ public class Tiger
         
         // Root transform
         Matrix rootWorld = Matrix.CreateScale(_scale)
-                           * Matrix.CreateRotationX(MathHelper.ToRadians(75f))
-                           * Matrix.CreateRotationY(MathHelper.ToRadians(0f))
-                           * Matrix.CreateRotationZ(MathHelper.ToRadians(170f))
+                           * Matrix.CreateRotationX(MathHelper.ToRadians(75f) + _tailRotation)
+                           * Matrix.CreateRotationZ(MathHelper.ToRadians(170f) + _legRotation)
                            * Matrix.CreateRotationY(facingAngle)
                            * Matrix.CreateTranslation(_position);
         foreach (ModelMesh mesh in _model.Meshes)

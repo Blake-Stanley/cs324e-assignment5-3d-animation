@@ -36,7 +36,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         view = Matrix.CreateLookAt(
-            new Vector3(0, 3, 10),
+            new Vector3(0, 3, 15),
             Vector3.Zero,
             Vector3.Up);
 
