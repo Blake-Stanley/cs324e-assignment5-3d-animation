@@ -30,13 +30,12 @@ public class Frog
     
     private Vector3 RandomDestination()
     {
-        // Define bounds of your scene
+        // Define bounds
         float x = (float)(rand.NextDouble() * 10f - 5f);
         float z = (float)(rand.NextDouble() * 10f - 5f);
         return new Vector3(x, 0f, z);
     }
-
-    // Update logic
+    
     public void Update(GameTime gameTime)
     {
         ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -45,10 +44,10 @@ public class Frog
         // Horizontal Lerp
         CurrentPosition = Vector3.Lerp(StartPosition, EndPosition, t);
 
-        // Vertical arc (simple parabolic hop using sin)
+        // Vertical arc
         CurrentPosition.Y += (float)Math.Sin(t * Math.PI) * JumpHeight;
 
-        // Squash/stretch: compress at launch/landing, stretch at apex
+        // Squash/stretch
         float squashFactor = 1 - 0.2f * (float)Math.Cos(t * Math.PI); // 0.8 -> 1.2
         SquashStretch = new Vector3(squashFactor, 1.2f - 0.2f * squashFactor, squashFactor);
 
