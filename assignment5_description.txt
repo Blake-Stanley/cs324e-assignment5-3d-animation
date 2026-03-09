@@ -1,0 +1,32 @@
+Assignment 5 - Project Description
+Group 2
+
+Intended Animation:
+A jungle scene with multiple animated animals moving continuously. The scene includes
+tigers walking back and forth, birds flying across the sky, monkeys swinging side to side,
+and frogs jumping around. Each animal has its own class with distinct animations using
+transformations and lerps.
+
+Classes:
+- Tiger.cs: Walks between left and right bounds using lerp. Has a two-level hierarchy
+  with root transform (position, scale, rotation) and child transforms for leg and tail
+  mesh animations.
+- Bird.cs: Flies along a linear path using Vector3.Lerp. Uses bone transforms for
+  hierarchical animation with wing flapping as a child transform on top of the root
+  flight path.
+- Monkey.cs: Swings side to side using lerp. Root transform handles position
+  and facing direction. Child transform applies body lean and forward-back bob as a
+  second level of animation.
+- Frog.cs: Jumps between positions using Vector3.Lerp with a vertical arc. Animates
+  squash/stretch scaling and mid-air rotation during the jump.
+
+Group Member Contributions:
+- Blake: Monkey class
+- Sydney: Frog class
+- Jinsoo: Bird class
+- Gian: Tiger class
+
+Challenges:
+- Apart from the bird model, the 3D models were a single mesh with no separate parts, so limb articulation
+  was not possible. We worked around this by applying non-limb animations like bobbing as the second
+  hierarchical level on the whole mesh.
